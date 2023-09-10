@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .todo-container {
+            margin-top: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+        }
+        h3, p, span {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List with Inputs</h1>
+        <div class="todo-container">
+            <h2>Add New Todo</h2>
+            <label for="title">Title:</label>
+            <input type="text" id="title" placeholder="Enter title">
+            
+            <label for="description">Description:</label>
+            <input type="text" id="description" placeholder="Enter description">
+            
+            <label for="datetime">Date and Time:</label>
+            <input type="datetime-local" id="datetime">
+            
+            <button onclick="addTodo()">Add Todo</button>
+        </div>
+        
+        <div class="todo-container">
+            <h2>Todo List</h2>
+            <ul id="todo-list">
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        function addTodo() {
+            const titleInput = document.getElementById("title");
+            const descriptionInput = document.getElementById("description");
+            const datetimeInput = document.getElementById("datetime");
+            
+            const title = titleInput.value;
+            const description = descriptionInput.value;
+            const datetime = datetimeInput.value;
+            
+            if (title.trim() !== "") {
+                const todoList = document.getElementById("todo-list");
+                const newTodoItem = document.createElement("li");
+                newTodoItem.innerHTML = `
+                    <h3>${title}</h3>
+                    <p>${description}</p>
+                    <span>${datetime}</span>
+                    <button onclick="removeTodo(this)">Remove</button>
+                `;
+                todoList.appendChild(newTodoItem);
+                titleInput.value = "";
+                descriptionInput.value = "";
+                datetimeInput.value = "";
+            }
+        }
+        
+        function removeTodo(button) {
+            const todoItem = button.parentElement;
+            todoItem.remove();
+        }
+    </script>
+</body>
+</html>
